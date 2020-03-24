@@ -50,7 +50,6 @@ def update():
                 cursor.execute(insert_query, record_to_insert)
                 connection.commit()
                 count += 1
-        return(count)
 
     except(Exception, psycopg2.Error) as error:
         print("Error while connecting to PostgreSQL", error)
@@ -60,4 +59,5 @@ def update():
         if(connection):
             cursor.close()
             connection.close()
+            return(count)
             print("PostgreSQL connection is closed")
