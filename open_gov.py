@@ -1,6 +1,12 @@
 import psycopg2
 import requests
 
+url = urlparse.urlparse(os.environ['DATABASE_URL'])
+dbname = url.path[1:]
+user = url.username
+password = url.password
+host = url.hostname
+port = url.port
 
 def check_exists(track_id, cursor):
     exists_query = '''
@@ -19,11 +25,11 @@ def update():
     result = res.json()
 
     try:
-        connection = psycopg2.connect(user="postgres",
-                                      password="0725",
-                                      host="127.0.0.1",
-                                      port="5432",
-                                      database="pets")
+        connection = psycopg2.connect(user=user,
+                                      password=password,
+                                      host=host,
+                                      port=port,
+                                      dbname=dbname)
 
         cursor = connection.cursor()
         # Print PostgreSQL Connection properties
