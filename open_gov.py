@@ -4,7 +4,7 @@ import os
 import urllib.parse as urlparse
 import operator
 import json
-
+import sys
 
 url = urlparse.urlparse(os.environ['DATABASE_URL'])
 dbname = url.path[1:]
@@ -98,7 +98,9 @@ def update():
             # return json object
             r = json.dumps(total)
             return(json.loads(r))
-            print("PostgreSQL connection is closed")
+            # logging
+            print(json.loads(r))
+            sys.stdout.flush()
 
 
 if __name__ == "__main__":
