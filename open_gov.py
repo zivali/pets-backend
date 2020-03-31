@@ -4,7 +4,7 @@ import os
 import urllib.parse as urlparse
 import operator
 import json
-import sys
+
 
 url = urlparse.urlparse(os.environ['DATABASE_URL'])
 dbname = url.path[1:]
@@ -95,12 +95,11 @@ def update():
         if(connection):
             cursor.close()
             connection.close()
-            r = json.dumps(total)
-            # logging
-            print(json.loads(r))
-            sys.stdout.flush()
             # return json object
-            return(json.loads(r))
+            r = json.dumps(total)
+            res_json = json.loads(r)
+            print(res_json)
+            return(res_json)
 
 
 if __name__ == "__main__":
