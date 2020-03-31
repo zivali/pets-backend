@@ -95,12 +95,12 @@ def update():
         if(connection):
             cursor.close()
             connection.close()
-            # return json object
             r = json.dumps(total)
-            return(json.loads(r))
             # logging
             print(json.loads(r))
             sys.stdout.flush()
+            # return json object
+            return(json.loads(r))
 
 
 if __name__ == "__main__":
