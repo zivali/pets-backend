@@ -82,10 +82,10 @@ def update():
                 connection.commit()
                 inserted_count += 1
 
-        total["delete"] = deleted_count
-        total["insert"] = inserted_count
-        total["api"] = len(result)
-        total["db"] = len(Pets)
+        total['delete'] = deleted_count
+        total['insert'] = inserted_count
+        total['api'] = len(result)
+        total['db'] = len(Pets)
 
     except(Exception, psycopg2.Error) as error:
         print("Error while connecting to PostgreSQL", error)
@@ -95,7 +95,9 @@ def update():
         if(connection):
             cursor.close()
             connection.close()
-            return(json.dumps(total))
+            # return json object
+            r = json.dumps(total)
+            return(json.loads(r))
             print("PostgreSQL connection is closed")
 
 
