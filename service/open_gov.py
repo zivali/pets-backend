@@ -1,7 +1,7 @@
 import psycopg2
-import requests
-import os
 import urllib.parse as urlparse
+import os
+import requests
 import operator
 import json
 
@@ -37,13 +37,6 @@ def update():
                                       port=port,
                                       dbname=dbname)
 
-        # local
-        # connection = psycopg2.connect(user="postgres",
-        #                               password="0725",
-        #                               host="127.0.0.1",
-        #                               port="5432",
-        #                               dbname="pets")
-
         cursor = connection.cursor()
         # Print PostgreSQL Connection properties
         print(connection.get_dsn_parameters(), "\n")
@@ -64,7 +57,7 @@ def update():
                 cursor.execute(delete_query, (Pets[index][0],))
                 connection.commit()
                 deleted_count += 1
-        
+
         # Check if api data in db and save to db
         insert_query = """ INSERT INTO pets (animal_id, animal_subid, animal_area_pkid, animal_shelter_pkid, animal_place, animal_kind, animal_sex, animal_bodytype, animal_colour, animal_age, animal_sterilization, animal_bacterin, animal_foundplace, animal_title, animal_status, animal_remark, animal_caption, animal_opendate, animal_closeddate, animal_update, animal_createtime, shelter_name, album_file, album_update, "cDate", shelter_address, shelter_tel) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
         inserted_count = 0
