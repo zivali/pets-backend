@@ -28,11 +28,11 @@ class Pets(db.Model):
     shelter_name = db.Column(db.String())
     album_file = db.Column(db.String())
     album_update = db.Column(db.String())
-    cDate = db.Column(db.String())
+    c_date = db.Column(db.String())
     shelter_address = db.Column(db.String())
     shelter_tel = db.Column(db.String())
 
-    def __init__(self, animal_id, animal_subid, animal_area_pkid, animal_shelter_pkid, animal_place, animal_kind, animal_sex, animal_bodytype, animal_colour, animal_age, animal_sterilization, animal_bacterin, animal_foundplace, animal_title, animal_status, animal_remark, animal_caption, animal_opendate, animal_closeddate, animal_update, animal_createtime, shelter_name, album_file, album_update, cDate, shelter_address, shelter_tel):
+    def __init__(self, animal_id, animal_subid, animal_area_pkid, animal_shelter_pkid, animal_place, animal_kind, animal_sex, animal_bodytype, animal_colour, animal_age, animal_sterilization, animal_bacterin, animal_foundplace, animal_title, animal_status, animal_remark, animal_caption, animal_opendate, animal_closeddate, animal_update, animal_createtime, shelter_name, album_file, album_update, c_date, shelter_address, shelter_tel):
         self.animal_id = animal_id
         self.animal_subid = animal_subid
         self.animal_area_pkid = animal_area_pkid
@@ -57,7 +57,7 @@ class Pets(db.Model):
         self.shelter_name = shelter_name
         self.album_file = album_file
         self.album_update = album_update
-        self.cDate = cDate
+        self.c_date = c_date
         self.shelter_address = shelter_address
         self.shelter_tel = shelter_tel
 
@@ -87,7 +87,7 @@ class Pets(db.Model):
             'shelter_name': self.shelter_name,
             'album_file': self.album_file,
             'album_update': self.album_update,
-            'cDate': self.cDate,
+            'c_date': self.c_date,
             'shelter_address': self.shelter_address,
             'shelter_tel': self.shelter_tel,
         }

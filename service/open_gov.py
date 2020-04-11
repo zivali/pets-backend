@@ -4,6 +4,7 @@ import os
 import requests
 import operator
 import json
+from datetime import datetime
 
 
 url = urlparse.urlparse(os.environ['DATABASE_URL'])
@@ -42,12 +43,13 @@ def update():
         print(connection.get_dsn_parameters(), "\n")
 
         # Selecting rows from pets table using cursor.fetchall
-        select_all = "select * from pets"
+        select_all = "SELECT * FROM pets"
         cursor.execute(select_all)
         Pets = cursor.fetchall()
+        print(Pets)
 
         # Check if pets adopted and delete
-        delete_query = """Delete from pets where animal_id = %s"""
+        delete_query = """DELETE FROM pets WHERE animal_id = %s"""
         deleted_count = 0
         for index in range(len(Pets)):
             exist = Pets[index][0] in map(operator.itemgetter("animal_id"), result)
@@ -59,7 +61,7 @@ def update():
                 deleted_count += 1
 
         # Check if api data in db and save to db
-        insert_query = """ INSERT INTO pets (animal_id, animal_subid, animal_area_pkid, animal_shelter_pkid, animal_place, animal_kind, animal_sex, animal_bodytype, animal_colour, animal_age, animal_sterilization, animal_bacterin, animal_foundplace, animal_title, animal_status, animal_remark, animal_caption, animal_opendate, animal_closeddate, animal_update, animal_createtime, shelter_name, album_file, album_update, "cDate", shelter_address, shelter_tel) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
+        insert_query = """ INSERT INTO pets (animal_id, animal_subid, animal_area_pkid, animal_shelter_pkid, animal_place, animal_kind, animal_sex, animal_bodytype, animal_colour, animal_age, animal_sterilization, animal_bacterin, animal_foundplace, animal_title, animal_status, animal_remark, animal_caption, animal_opendate, animal_closeddate, animal_update, animal_createtime, shelter_name, album_file, album_update, c_date, shelter_address, shelter_tel) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"""
         inserted_count = 0
         for index in range(len(result)):
             # if not exist in db => save to db
@@ -69,9 +71,15 @@ def update():
                 pass
             else:
                 record = result[index]
+                if (record["cDate"]):
+                    c_date = datetime.strptime(record["cDate"], "%Y/%m/%d").date()
+                else:
+                    c_date = datetime.strptime(record["animal_createtime"], "%Y/%m/%d").date()
+                
                 record_to_insert = (record["animal_id"], record["animal_subid"], record["animal_area_pkid"], record["animal_shelter_pkid"], record["animal_place"], record["animal_kind"], record["animal_sex"], record["animal_bodytype"], record["animal_colour"], record["animal_age"], record["animal_sterilization"], record["animal_bacterin"], record["animal_foundplace"],
-                                    record["animal_title"], record["animal_status"], record["animal_remark"], record["animal_caption"], record["animal_opendate"], record["animal_closeddate"], record["animal_update"], record["animal_createtime"], record["shelter_name"], record["album_file"], record["album_update"], record["cDate"], record["shelter_address"], record["shelter_tel"])
+                                    record["animal_title"], record["animal_status"], record["animal_remark"], record["animal_caption"], record["animal_opendate"], record["animal_closeddate"], record["animal_update"], record["animal_createtime"], record["shelter_name"], record["album_file"], record["album_update"], c_date, record["shelter_address"], record["shelter_tel"])
                 cursor.execute(insert_query, record_to_insert)
+                
                 connection.commit()
                 inserted_count += 1
 

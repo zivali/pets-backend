@@ -43,7 +43,7 @@ def upgrade():
     sa.Column('shelter_name', sa.String(), nullable=True),
     sa.Column('album_file', sa.String(), nullable=True),
     sa.Column('album_update', sa.String(), nullable=True),
-    sa.Column('cDate', sa.String(), nullable=True),
+    sa.Column('c_date', sa.String(), nullable=True),
     sa.Column('shelter_address', sa.String(), nullable=True),
     sa.Column('shelter_tel', sa.String(), nullable=True),
     sa.PrimaryKeyConstraint('animal_id')
