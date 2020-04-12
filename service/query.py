@@ -28,9 +28,8 @@ class Query:
     def query_all(self, animal_id, animal_kind, top, skip):
         if ((animal_id is None) and (animal_kind is None) and (top is None) and (skip is None)):
             # Selecting rows from pets table using cursor.fetchall
-            select_all_query = "SELECT * FROM pets"
+            select_all_query = "SELECT * FROM pets ORDER BY pets.c_date DESC"
             self.cursor.execute(select_all_query)
-            print(animal_id)
             Pets = self.cursor.fetchall()
             # result = json.dumps(Pets, ensure_ascii=False, indent=2)
             return(Pets)

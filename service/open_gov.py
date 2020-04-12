@@ -46,7 +46,7 @@ def update():
         select_all = "SELECT * FROM pets"
         cursor.execute(select_all)
         Pets = cursor.fetchall()
-        print(Pets)
+
 
         # Check if pets adopted and delete
         delete_query = """DELETE FROM pets WHERE animal_id = %s"""
