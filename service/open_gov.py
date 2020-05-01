@@ -30,6 +30,17 @@ def update():
     res = requests.get(
         "https://data.coa.gov.tw/Service/OpenData/TransService.aspx?UnitId=QcbUEzN6E6DL")
     result = res.json()
+    cat = 0
+    dog = 0
+    for index in result:
+        if(index['animal_kind'] == "狗"):
+            dog += 1
+        else:
+            cat += 1
+    
+    print("dog: " + str(dog))
+    print("cat: " + str(cat))
+    print(len(result))
     total = {}
     try:
         connection = psycopg2.connect(user=user,
@@ -40,7 +51,7 @@ def update():
 
         cursor = connection.cursor()
         # Print PostgreSQL Connection properties
-        print(connection.get_dsn_parameters(), "\n")
+        # print(connection.get_dsn_parameters(), "\n")
 
         # Selecting rows from pets table using cursor.fetchall
         select_all = "SELECT * FROM pets"
