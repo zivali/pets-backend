@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_cors import CORS, cross_origin
 from flask_sqlalchemy import SQLAlchemy
 import os
 from service.open_gov import update
@@ -18,6 +19,9 @@ class DateEncoder(json.JSONEncoder):
 
 
 app = Flask(__name__)
+# CORS config
+cors = CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 # json config
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 app.config['JSON_AS_ASCII'] = False
@@ -29,6 +33,7 @@ db = SQLAlchemy(app)
 
 
 @app.route("/", methods=["GET"])
+@cross_origin()
 def home():
     animal_id = request.args.get("animal_id")
     animal_kind = request.args.get("animal_kind")
@@ -40,6 +45,7 @@ def home():
 
 
 @app.route("/update", methods=["GET"])
+@cross_origin()
 def new():
     return update()
 
