@@ -40,7 +40,9 @@ def home():
     top = request.args.get("top")
     skip = request.args.get("skip")
     result = Query().query_all(animal_id, animal_kind, top, skip)
-    return(jsonify(result))
+    response = jsonify(result)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return(response)
     # return(json.dumps(result, cls=DateEncoder, ensure_ascii=False))
 
 
